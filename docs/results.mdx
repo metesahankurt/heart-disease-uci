@@ -1,0 +1,47 @@
+---
+title: Results
+description: Best configuration, overfitting analysis, and clinical interpretation of precision and recall.
+---
+
+# Results
+
+## Best Configuration
+
+| Setting | Value |
+|---|---|
+| Activation | ReLU |
+| Optimizer | Adam |
+| Learning Rate | 0.001 |
+| Loss Function | Binary Cross-Entropy |
+| Test Accuracy | ~97% |
+
+## Overfitting Analysis
+
+The high accuracy figures (~97–98%) might raise questions about whether the model is simply memorizing the training data.
+
+To investigate, training and validation loss curves were examined throughout training. In an overfit model, training loss keeps decreasing while validation loss begins rising — creating a visible divergence. This pattern was not observed here. Both curves decrease together and remain close throughout training, indicating genuine generalization.
+
+Factors that helped prevent overfitting:
+
+- Balanced class distribution (~51%/49%) avoids class-imbalance artifacts.
+- Dropout after each hidden layer adds regularization.
+- The dataset, while small (1,025 samples), is large enough relative to the model's parameter count.
+
+## Precision and Recall
+
+Both precision and recall were high in the final classification report.
+
+In a medical context, these two metrics carry different consequences:
+
+- A **false negative** (predicting a sick patient as healthy) means a patient with heart disease is sent home untreated. This is clinically dangerous.
+- A **false positive** (predicting a healthy patient as sick) leads to unnecessary follow-up tests — costly and stressful, but not life-threatening.
+
+High recall means the model is catching most true positive cases — the clinically important outcome. High precision means it is not generating excessive false alarms, which matters for practical usability in a clinical workflow.
+
+## Key Takeaways
+
+- ReLU decisively outperformed Sigmoid (~97% vs. ~83%), confirming the vanishing gradient theory in practice.
+- Adam optimizer converged fastest and most reliably across all experiments.
+- A learning rate of 0.001 was the sweet spot — 0.1 caused divergence, 0.0001 was too slow.
+- Dropout was essential: without it, 1,025 samples is small enough to cause clear overfitting.
+- Theory matched experiment throughout — seeing the sigmoid vanishing gradient actually hurt accuracy made the learning concrete in a way that theory alone cannot.

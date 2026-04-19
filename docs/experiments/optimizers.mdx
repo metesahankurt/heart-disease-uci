@@ -1,0 +1,44 @@
+---
+title: Optimizers
+description: Comparing Adam, SGD, RMSProp, and Adagrad convergence and accuracy.
+---
+
+# Optimizer Comparison
+
+Four optimizers were tested under identical conditions (ReLU activations, learning rate 0.001, same architecture) to isolate the effect of the optimization algorithm.
+
+## Results
+
+| Optimizer | Test Accuracy |
+|---|---|
+| Adam | ~98.5% |
+| SGD | ~97.5% |
+| RMSProp | ~97% |
+| Adagrad | ~89.7% |
+
+## Analysis
+
+### Adam (~98.5%)
+
+Adam (Adaptive Moment Estimation) is the best performer. It combines two ideas:
+
+1. **Momentum** from SGD — accumulates a velocity vector in directions of persistent gradient, helping navigate flat regions and escape local minima faster.
+2. **Adaptive learning rates** from RMSProp — scales the learning rate per parameter based on recent gradient magnitudes, so frequently updated parameters get smaller updates.
+
+The result is an optimizer that is fast, stable, and robust to hyperparameter choices — which is why it is the default in most deep learning workflows.
+
+### SGD (~97.5%)
+
+Stochastic Gradient Descent with a fixed learning rate performs well but lags slightly behind Adam. Without momentum or adaptive rates, it takes more epochs to converge and is more sensitive to the choice of learning rate.
+
+### RMSProp (~97%)
+
+RMSProp adapts learning rates per parameter (like Adam) but lacks the momentum term. It performs similarly to SGD here, suggesting that for this dataset momentum matters more than adaptive rates alone.
+
+### Adagrad (~89.7%)
+
+Adagrad's accumulated squared gradients grow monotonically, causing the effective learning rate to decay aggressively over time — often to near zero before convergence. This is why it underperforms on problems requiring many training steps.
+
+## Takeaway
+
+> Adam is the best choice for this dataset. Its combination of momentum and adaptive rates gives it an edge in both convergence speed and final accuracy.

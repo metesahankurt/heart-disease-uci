@@ -1,0 +1,39 @@
+---
+title: Model Architecture
+description: A 3-hidden-layer neural network for binary classification on tabular data.
+---
+
+# Model Architecture
+
+## Network Design
+
+The neural network was designed to balance capacity and generalization for a 13-feature tabular dataset.
+
+| Layer | Neurons | Activation |
+|---|---|---|
+| Input | 13 | — |
+| Hidden 1 | 64 | ReLU |
+| Hidden 2 | 32 | ReLU |
+| Hidden 3 | 16 | ReLU |
+| Output | 1 | Sigmoid |
+
+- Loss function: Binary Cross-Entropy
+- Optimizer: Adam
+- Regularization: Dropout after each hidden layer
+
+## Why 3 Hidden Layers?
+
+The choice is grounded in the bias-variance trade-off:
+
+- Too few layers → underfitting (high bias), the model cannot capture meaningful patterns.
+- Too many layers → overfitting (high variance), the model memorizes training data.
+
+Three layers sit at a reasonable middle ground for a dataset of 1,025 samples with 13 features. Alternative architectures (1 hidden layer and 5 hidden layers) were also tested to validate this choice.
+
+## Why Sigmoid on the Output?
+
+The output layer uses a single neuron with a Sigmoid activation, which squashes the output to the range [0, 1]. This directly represents the probability of heart disease being present, making it natural for binary classification with Binary Cross-Entropy loss.
+
+## Regularization with Dropout
+
+With only 1,025 training samples, overfitting is a real risk. Dropout randomly deactivates a fraction of neurons during each training step, preventing the network from co-adapting and forcing it to learn more robust representations.

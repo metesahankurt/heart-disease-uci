@@ -1,0 +1,40 @@
+---
+title: Batch Size
+description: How batch size affects update frequency, noise, and generalization.
+---
+
+# Batch Size Analysis
+
+Batch size determines how many samples are processed before updating model weights. Four values were tested: 16, 32, 64, and 128.
+
+## Trade-offs
+
+| Batch Size | Gradient Updates per Epoch | Update Noise | Generalization |
+|---|---|---|---|
+| 16 | High | High (noisy) | Often better |
+| 32 | Moderate | Moderate | Good balance |
+| 64 | Moderate-low | Lower | Moderate |
+| 128 | Low | Low (smooth) | May overfit |
+
+## How It Works
+
+Each training step computes the gradient on a mini-batch and updates the weights. With a smaller batch:
+
+- More updates happen per epoch (more gradient steps).
+- Each gradient estimate is noisier (fewer samples to average over), but this noise can act as implicit regularization — helping the model escape sharp local minima and find flatter, better-generalizing solutions.
+
+With a larger batch:
+
+- Fewer updates per epoch.
+- Gradient estimates are smoother and more accurate, but the model may converge to sharper minima that generalize less well.
+
+## Practical Considerations
+
+For a dataset of 1,025 samples:
+
+- Batch size 16 or 32 keeps gradient updates frequent and noisy enough to regularize effectively.
+- Batch size 128 reduces the number of updates per epoch significantly (only ~8 updates per epoch), which may slow learning or reduce generalization on a small dataset.
+
+## Takeaway
+
+> Smaller batch sizes (16–32) tend to work better on small datasets like this one. They provide more gradient updates and their inherent noise acts as a form of regularization alongside Dropout.

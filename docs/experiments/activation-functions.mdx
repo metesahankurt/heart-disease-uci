@@ -1,0 +1,39 @@
+---
+title: Activation Functions
+description: Comparing Sigmoid, Tanh, ReLU, and Leaky ReLU in hidden layers.
+---
+
+# Activation Function Comparison
+
+The same architecture was trained with four different activation functions in the hidden layers to measure their impact on classification accuracy.
+
+## Results
+
+| Activation | Test Accuracy |
+|---|---|
+| Sigmoid | ~83% |
+| Tanh | ~95% |
+| ReLU | ~97% |
+| Leaky ReLU | ~97%+ |
+
+## Analysis
+
+### Sigmoid (~83%)
+
+Sigmoid was the worst-performing activation in hidden layers. The core problem is the **vanishing gradient**: as values are pushed toward 0 or 1, gradients become extremely small. During backpropagation, these tiny gradients are multiplied layer by layer — by the time they reach the early layers, they have essentially vanished. The model struggles to learn, especially in deeper networks.
+
+### Tanh (~95%)
+
+Tanh improves significantly over Sigmoid. Its output is zero-centered (range [-1, 1]), which helps gradient flow. However, it still saturates at extreme values, meaning the vanishing gradient problem is reduced but not eliminated.
+
+### ReLU (~97%)
+
+ReLU (`max(0, x)`) avoids saturation entirely for positive inputs — the gradient is always 1 for activated neurons, allowing it to flow freely. This is why it dramatically outperforms Sigmoid here. ReLU is the standard choice for hidden layers in modern networks.
+
+### Leaky ReLU (~97%+)
+
+Leaky ReLU addresses the "dying ReLU" problem: standard ReLU outputs 0 for all negative inputs, which can permanently deactivate neurons. Leaky ReLU keeps a small slope (e.g., 0.01) for negative values, keeping all neurons trainable. The marginal gain over ReLU in this experiment suggests the dying ReLU issue was not severe here.
+
+## Takeaway
+
+> ReLU and Leaky ReLU are the clear winners. The ~14 percentage point gap between Sigmoid and ReLU directly demonstrates the vanishing gradient problem — theory and experiment match precisely.

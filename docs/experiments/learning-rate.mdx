@@ -1,0 +1,39 @@
+---
+title: Learning Rate
+description: Finding the right learning rate — from divergence at 0.1 to slow convergence at 0.0001.
+---
+
+# Learning Rate Analysis
+
+Learning rate controls the step size during gradient descent. Four values were tested with Adam optimizer and ReLU activations.
+
+## Results
+
+| Learning Rate | Outcome |
+|---|---|
+| 0.1 | Model failed to learn (~51% accuracy) |
+| 0.01 | 100% test accuracy (small-dataset variance artifact) |
+| 0.001 | Most stable and generalizable result |
+| 0.0001 | Very slow convergence |
+
+## Analysis
+
+### 0.1 — Too Large
+
+A learning rate of 0.1 caused the model to diverge. The steps are so large that the optimizer overshoots the loss minimum, bouncing around without converging. The ~51% accuracy is essentially random guessing on a binary problem.
+
+### 0.01 — Suspicious 100%
+
+A perfect 100% test accuracy is a red flag on a dataset of 1,025 samples. With only a few hundred test samples, random variation in the train/test split can produce this result even when the model is slightly overfit. This is not a reliable result to report as the best configuration.
+
+### 0.001 — Sweet Spot
+
+A learning rate of 0.001 produced the most consistent and trustworthy results across multiple runs. The loss curves for training and validation descend smoothly and converge together, indicating genuine generalization rather than memorization.
+
+### 0.0001 — Too Small
+
+A very small learning rate means very small gradient steps. The model learns, but extremely slowly. In practice, this may mean the model hasn't converged within the number of epochs allocated, leaving accuracy lower than it could be with more training time.
+
+## Takeaway
+
+> 0.001 is the standard default for Adam — and this experiment confirms why. The adjacent values (0.1 too large, 0.0001 too slow) show the sensitivity of training to this hyperparameter.

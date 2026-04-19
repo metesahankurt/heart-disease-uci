@@ -1,0 +1,38 @@
+---
+title: Introduction
+description: Binary classification with deep learning on the UCI Heart Disease dataset.
+---
+
+# Heart Disease Classification
+
+This project builds and evaluates a binary classification neural network to predict the presence of heart disease in patients. Using the Heart Disease UCI dataset, it systematically explores different architectural choices — activation functions, optimizers, learning rates, and batch sizes — to understand their real-world impact on model performance.
+
+> Academic context: Mid-term project for a Deep Learning course, guided by Doç. Dr. Öğr. Üyesi Abdullatif KABAN.
+
+## What This Project Covers
+
+<CardGroup cols={2}>
+  <Card title="Dataset" icon="database" href="/docs/dataset">
+    1,025 patient records with 13 clinical features from the UCI Heart Disease dataset.
+  </Card>
+  <Card title="Architecture" icon="network-wired" href="/docs/architecture">
+    A 3-hidden-layer neural network designed for tabular binary classification.
+  </Card>
+  <Card title="Experiments" icon="flask" href="/docs/experiments/activation-functions">
+    Systematic comparison of activation functions, optimizers, learning rates, and batch sizes.
+  </Card>
+  <Card title="Results" icon="chart-line" href="/docs/results">
+    Best configuration achieves ~97% test accuracy with strong precision and recall.
+  </Card>
+</CardGroup>
+
+## Tech Stack
+
+| Tool | Role |
+|---|---|
+| Python 3.10+ | Language |
+| TensorFlow / Keras | Model training |
+| scikit-learn | Preprocessing |
+| pandas / NumPy | Data handling |
+| Matplotlib / Seaborn | Visualization |
+| Jupyter Notebook | Development environment |

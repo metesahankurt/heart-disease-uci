@@ -1,0 +1,50 @@
+---
+title: Getting Started
+description: Set up the environment and run the notebook locally.
+---
+
+# Getting Started
+
+## Prerequisites
+
+- Python 3.10 or higher
+- Git
+
+## Installation
+
+Clone the repository and create a virtual environment:
+
+```bash
+git clone https://github.com/metesahankurt/heart-disease-uci.git
+cd heart-disease-uci
+python3 -m venv venv
+source venv/bin/activate   # Windows: venv\Scripts\activate
+```
+
+Install dependencies:
+
+```bash
+pip install tensorflow scikit-learn pandas numpy matplotlib seaborn jupyter
+```
+
+## Running the Notebook
+
+```bash
+jupyter notebook heart_disease_classification.ipynb
+```
+
+The notebook is self-contained — it loads `heart.csv`, preprocesses the data, trains the model, and runs all experiments in sequence.
+
+## Repository Structure
+
+```
+heart-disease-uci/
+├── heart_disease_classification.ipynb   # Main notebook (Turkish)
+├── heart.csv                            # Dataset (UCI Heart Disease)
+├── docs/                                # Documentation (Mintlify)
+└── README.md
+```
+
+## License
+
+MIT License — free to use, adapt, and build upon.
